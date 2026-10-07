@@ -1,0 +1,32 @@
+.post {
+    padding-top: 50px;
+    padding-bottom: 67px;
+    max-width: 880px;
+}
+
+.post__card {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 17px;
+
+}
+
+@media screen and (max-width : 880px) {
+    .post {
+        padding: 46px 8px 0 8px;
+    }
+
+    .post__card {
+        gap: 10px;
+
+    }
+}
+
+
+@media screen and (max-width : 320px) {
+    .post {
+        padding: 46px 19px 0 19px;
+    }
+}
