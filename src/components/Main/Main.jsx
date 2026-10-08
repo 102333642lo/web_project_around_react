@@ -1,13 +1,14 @@
 import avatar from "../../../images/avatar.png";
 import { useState } from "react";
-import Popup from "./components/Popup/Popup";
-import NewCard from "./form/NewCard/NewCard";
-import EditProfile from "./form/EditProfile/EditProfile";
-import EditAvatar from "./form/EditAvatar/EditAvatar";
-import Card from "./components/Card/Card";
+import Popup from "./Popup/Popup";
+import NewCard from "./NewCard/NewCard";
+import EditProfile from "./EditProfile/EditProfile";
+import EditAvatar from "./EditAvatar/EditAvatar";
+import Card from "./Card/Card";
+import RemoveCard from "./RemoveCard/RemoveCard"
 
 
-const cards = [
+const initialCards  = [
   {
     isLiked: false,
     _id: "5d1f0611d321eb4bdcd707dd",
@@ -26,17 +27,50 @@ const cards = [
   },
 ];
 
-console.log(cards);
 
 
 
 
 export default function Main() {
   const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState(initialCards);
+  const [profile, setProfile] = useState({
+  name: "Jacques Cousteau",
+  bio: "Explorador",
+  });
+  const [avatarLink, setAvatarLink] = useState(avatar);
+
+function handleAddCard(card) {
+  const newCard = {
+    ...card,
+    isLiked: false,
+    _id: Date.now().toString(),
+  };
+
+  setCards((currentCards) => [newCard, ...currentCards]);
+  handleClosePopup();
+}
+function handleSaveProfile(newProfile) {
+  setProfile(newProfile);
+  handleClosePopup();
+}
+function handleSaveAvatar(newAvatar) {
+  setAvatarLink(newAvatar);
+  handleClosePopup();
+}
+function handleLikeCard(cardId) {
+  setCards((currentCards) =>
+    currentCards.map((card) =>
+      card._id === cardId
+        ? { ...card, isLiked: !card.isLiked }
+        : card
+    )
+  );
+}
 
 const newCardPopup = {
   title: "Nuevo lugar",
-  children: <NewCard />,
+  children: <NewCard onAddCard={handleAddCard} />,
   closeClassName: "submit__close",
   popupClassName: "submit",
   formClassName: "submit__form",
@@ -45,7 +79,7 @@ const newCardPopup = {
 
 const editProfilePopup = {
   title: "Editar perfil",
-  children: <EditProfile />,
+  children: <EditProfile onSaveProfile={handleSaveProfile} />,
   closeClassName: "editor__close",
   popupClassName: "editor",
   formClassName: "editor__form",
@@ -54,17 +88,35 @@ const editProfilePopup = {
 
 const editAvatarPopup = {
   title: "Cambiar foto de perfil",
-  children: <EditAvatar />,
+  children: <EditAvatar onSaveAvatar={handleSaveAvatar} />,
   closeClassName: "avatar__close",
   popupClassName: "avatarEdit",
   formClassName: "avatar__form",
   titleClassName: "avatar__tiulo",
 };
 
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
+function handleOpenPopup(popup, card = null) {
+  setPopup(popup);
+}
+function handleOpenRemovePopup(card) {
+  setPopup({
+    title: "¿Estás seguro/a?",
+    children: (
+      <RemoveCard
+        onSubmit={() => {
+          setCards((currentCards) =>
+            currentCards.filter((currentCard) => currentCard._id !== card._id)
+          );
+          handleClosePopup();
+        }}
+      />
+    ),
+    closeClassName: "delet__close",
+    popupClassName: "delet",
+    formClassName: "delet__card",
+    titleClassName: "delet__tiulo",
+  });
+}
   const handleClosePopup = () => {
     setPopup(null);
   };
@@ -75,7 +127,7 @@ const editAvatarPopup = {
         <div className="profile__avatar-container">
           <img
             className="profile__imagen"
-            src={avatar}
+            src={avatarLink}
             alt="imagen de perfil"
           />
           <button
@@ -88,7 +140,7 @@ const editAvatarPopup = {
 
         <div className="profile__info">
           <h1 className="profile__usuario" id="usuareProfile">
-            Jacques Cousteau
+            {profile.name}
           </h1>
           <button
           id="openEdit"
@@ -98,7 +150,7 @@ const editAvatarPopup = {
           ></button>
           
           <p className="profile__description" id="bioProfile">
-            Explorador
+            {profile.bio}
           </p>
 
           <button
@@ -114,6 +166,7 @@ const editAvatarPopup = {
         <ul id="cards-container" className="post__card">
           {cards.map((card) => (
             <Card key={card._id} card={card} handleOpenPopup={handleOpenPopup}
+              handleOpenRemovePopup={handleOpenRemovePopup} handleLikeCard={handleLikeCard}
             />))}
         </ul>
       </section>

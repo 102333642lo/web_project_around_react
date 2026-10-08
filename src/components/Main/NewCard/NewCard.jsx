@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function NewCard() {
+export default function NewCard({ onAddCard }) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -19,15 +19,20 @@ export default function NewCard() {
     title.trim().length <= 30 &&
     isValidUrl(link.trim());
 
-  function handleSubmit(event) {
-    event.preventDefault();
+ function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!isFormValid) {
-      return;
-    }
-
-    setIsSaving(true);
+  if (!isFormValid) {
+    return;
   }
+
+  setIsSaving(true);
+
+  onAddCard({
+    name: title.trim(),
+    link: link.trim(),
+  });
+}
 
   return (
     <form

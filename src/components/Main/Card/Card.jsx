@@ -1,7 +1,7 @@
 import ImagePopup from "../ImagePopup/ImagePopup"
 export default function Card(props) {
   const { name, link, isLiked } = props.card;  
-  const { handleOpenPopup } = props;
+  const { handleOpenPopup, handleOpenRemovePopup,handleLikeCard  } = props;
 
   const imageComponent = {
     title: "",
@@ -15,15 +15,16 @@ export default function Card(props) {
     <li className="card">
       <div className="card__content">
         
-      <img className="card__image" 
-      src={link} alt={name} 
-      onClick={() => handleOpenPopup(imageComponent)}/>
+        <img className="card__image" 
+        src={link} alt={name} 
+        onClick={() => handleOpenPopup(imageComponent)}/>
 
-      <button
+        <button
         aria-label="Delete card"
         className="card__delet"
         type="button"
-      />
+        onClick={() => handleOpenRemovePopup(props.card)}
+        />
 
         <h2 className="card__footer">{name}</h2>
 
@@ -31,6 +32,7 @@ export default function Card(props) {
           aria-label="Like card"
           type="button"
           className={`card__like ${isLiked ? "card__like_active" : ""}`}
+          onClick={() => handleLikeCard(props.card._id)}
         />
       </div>
     </li>

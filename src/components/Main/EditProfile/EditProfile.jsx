@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function EditProfile() {
+export default function EditProfile({ onSaveProfile }) {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -12,19 +12,24 @@ export default function EditProfile() {
     bio.trim().length <= 200;
 
   function handleSubmit(event) {
-    event.preventDefault();
+  event.preventDefault();
 
-    if (!isFormValid) {
-      return;
-    }
-
-    setIsSaving(true);
-
-    console.log("Guardando perfil:", {
-      name,
-      bio,
-    });
+  if (!isFormValid) {
+    return;
   }
+
+  setIsSaving(true);
+
+  onSaveProfile({
+    name: name.trim(),
+    bio: bio.trim(),
+  });
+  
+   console.log("Guardando perfil:", {
+    name,
+    bio,
+   });
+}
 
   return (
     <form

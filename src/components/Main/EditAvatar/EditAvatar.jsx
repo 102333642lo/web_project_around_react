@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function EditAvatar() {
+export default function EditAvatar({ onSaveAvatar }) {
   const [avatarLink, setAvatarLink] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -23,6 +23,8 @@ export default function EditAvatar() {
     }
 
     setIsSaving(true);
+    
+    onSaveAvatar(avatarLink.trim());
 
     console.log("Guardando avatar:", {
       avatarLink,
