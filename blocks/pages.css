@@ -1,28 +1,27 @@
 .page {
-  min-width: 1024px;
+  width: 100%;
   max-width: 1280px;
-  font-family: inter, sans-serif;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: Inter, sans-serif;
   background-color: black;
-  padding-left: 200px;
-  padding-right: 200px;
+  padding: 0 200px;
 
 }
 
 @media screen and (max-width : 880px) {
   .page {
-    min-width: 544px;
-    max-width: 880px;
-    padding: 0;
+    padding: 0 40px;
   }
 
 
 }
 
 
-@media screen and (max-width : 320px) {
+
+
+@media screen and (max-width: 320px) {
   .page {
-    min-width: 310px;
-    max-width: 530px;
-    padding: 0;
+    padding: 0 19px;
   }
 }
