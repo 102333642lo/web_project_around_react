@@ -152,14 +152,14 @@ function handleOpenRemovePopup(card) {
           <p className="profile__description" id="bioProfile">
             {profile.bio}
           </p>
-
+        </div>
+      
           <button
             id="openSutmit"
             type="button"
             className="profile__btnadd"
             onClick={() => handleOpenPopup(newCardPopup)}
           ></button>
-        </div>
       </section>
 
       <section className="post">

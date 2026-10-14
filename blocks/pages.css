@@ -9,7 +9,7 @@
 
 }
 
-@media screen and (max-width : 880px) {
+@media screen and (max-width : 999px) {
   .page {
     padding: 0 40px;
   }
@@ -17,7 +17,13 @@
 
 }
 
+@media screen and (max-width : 880px) {
+  .page {
+    padding: 0 40px;
+  }
 
+
+}
 
 
 @media screen and (max-width: 320px) {
