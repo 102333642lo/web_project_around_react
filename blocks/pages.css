@@ -9,11 +9,11 @@
 
 }
 
-@media screen and (max-width : 999px) {
-  .page {
-    padding: 0 40px;
-  }
+@media screen and (max-width : 1113px) {
 
+  .page {
+    padding: 0 113px;
+  }
 
 }
 

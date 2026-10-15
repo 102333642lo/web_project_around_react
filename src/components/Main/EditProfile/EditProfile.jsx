@@ -9,7 +9,7 @@ export default function EditProfile({ onSaveProfile }) {
     name.trim().length >= 2 &&
     name.trim().length <= 40 &&
     bio.trim().length >= 2 &&
-    bio.trim().length <= 200;
+    bio.trim().length <= 150;
 
   function handleSubmit(event) {
   event.preventDefault();
@@ -63,7 +63,7 @@ export default function EditProfile({ onSaveProfile }) {
           id="bio"
           name="bio"
           className="editor__text"
-          maxLength="200"
+          maxLength="150"
           minLength="2"
           value={bio}
           onChange={(event) => setBio(event.target.value)}
